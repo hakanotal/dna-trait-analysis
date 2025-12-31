@@ -331,6 +331,107 @@ const TRAIT_DATABASE = {
              "TT": {"effect": "Dry Earwax", "icon": "✨", "score": 0, "simple": "You have dry earwax and likely no body odor (common in East Asians)."}
          },
          "confidence": "High"
+    },
+    // --- SENSORY & FUN TRAITS ---
+    "rs72921001": {
+        "trait": "Cilantro Taste",
+        "gene": "OR6A2",
+        "category": "Physical",
+        "variants": {
+            "CC": {"effect": "Soapy taste", "icon": "🧼", "score": 1, "simple": "Cilantro likely tastes like soap to you due to olfactory receptor sensitivity."},
+            "AC": {"effect": "Soapy taste", "icon": "🧼", "score": 1, "simple": "You may find cilantro has a slightly soapy or chemical aftertaste."},
+            "AA": {"effect": "Herbal taste", "icon": "🌿", "score": 0, "simple": "You likely taste cilantro as a fresh, herbal flavor."}
+        },
+        "confidence": "High"
+    },
+    "rs10427255": {
+        "trait": "Photic Sneeze Reflex",
+        "gene": "ZEB2",
+        "category": "Physical",
+        "variants": {
+            "CC": {"effect": "Sun sneezer", "icon": "☀️", "score": 1, "simple": "You likely sneeze when suddenly exposed to bright sunlight (ACHOO syndrome)."},
+            "CT": {"effect": "Likely sneezer", "icon": "🤧", "score": 1, "simple": "You have a higher chance of sneezing in bright light."},
+            "TT": {"effect": "No reflex", "icon": "😎", "score": 0, "simple": "Bright light likely does not trigger a sneeze for you."}
+        },
+        "confidence": "Medium"
+    },
+    "rs13303010": {
+        "trait": "Asparagus Odor Detection",
+        "gene": "OR2M7",
+        "category": "Physical",
+        "variants": {
+            "AA": {"effect": "Strong detection", "icon": "👃", "score": 1, "simple": "You can smell the distinct odor in urine after eating asparagus."},
+            "GG": {"effect": "Nose blind", "icon": "🚫", "score": 0, "simple": "You likely cannot smell the specific metabolites from asparagus."},
+            "AG": {"effect": "Moderate detection", "icon": "👃", "score": 0.5, "simple": "You may be able to smell the odor, but less intensely."}
+        },
+        "confidence": "High"
+    },
+
+    // --- NUTRITION & DEFICIENCIES ---
+    "rs602662": {
+        "trait": "Vitamin B12 Levels",
+        "gene": "FUT2",
+        "category": "Nutrition",
+        "variants": {
+            "AA": {"effect": "Lower absorption", "icon": "📉", "score": 1, "simple": "You are a 'non-secretor.' You may absorb B12 less efficiently in the gut."},
+            "GG": {"effect": "Normal absorption", "icon": "🥩", "score": 0, "simple": "You are a 'secretor,' allowing for normal Vitamin B12 absorption."},
+            "AG": {"effect": "Normal absorption", "icon": "✅", "score": 0, "simple": "You have typical B12 absorption levels."}
+        },
+        "confidence": "High"
+    },
+    "rs1800562": {
+        "trait": "Iron Overload (Hemochromatosis)",
+        "gene": "HFE",
+        "category": "Health",
+        "variants": {
+            "AA": {"effect": "High Risk", "icon": "🩸", "score": 2, "simple": "You carry two copies of the C282Y variant. High risk of absorbing too much iron."},
+            "AG": {"effect": "Carrier", "icon": "⚠️", "score": 1, "simple": "You are a carrier. You likely absorb iron well but should monitor levels."},
+            "GG": {"effect": "Normal", "icon": "✅", "score": 0, "simple": "You have typical iron metabolism genetics."}
+        },
+        "confidence": "High"
+    },
+    "rs699": {
+        "trait": "Salt Sensitivity",
+        "gene": "AGT",
+        "category": "Nutrition",
+        "variants": {
+            "GG": {"effect": "Sodium sensitive", "icon": "🧂", "score": 1, "simple": "Salt consumption may raise your blood pressure more than average."},
+            "AA": {"effect": "Less sensitive", "icon": "✅", "score": 0, "simple": "Your blood pressure is less affected by sodium intake."}
+        },
+        "confidence": "Medium"
+    },
+
+    // --- FITNESS & PAIN ---
+    "rs324420": {
+        "trait": "Pain Tolerance & Anxiety",
+        "gene": "FAAH",
+        "category": "Cognitive",
+        "variants": {
+            "AA": {"effect": "High tolerance", "icon": "😌", "score": 0, "simple": "You may feel less anxiety and have higher pain tolerance (The 'Chill' Gene)."},
+            "AC": {"effect": "Moderate", "icon": "⚖️", "score": 0.5, "simple": "You have a balanced response to pain and stress."},
+            "CC": {"effect": "Normal sensitivity", "icon": "🧠", "score": 1, "simple": "You have typical sensitivity to physical pain and anxiety."}
+        },
+        "confidence": "Medium"
+    },
+    "rs8192678": {
+        "trait": "Aerobic Capacity",
+        "gene": "PPARGC1A",
+        "category": "Fitness",
+        "variants": {
+            "AA": {"effect": "High endurance", "icon": "🏃", "score": 1, "simple": "Your mitochondria are efficient, boosting aerobic performance."},
+            "GG": {"effect": "Normal", "icon": "✅", "score": 0, "simple": "You have baseline aerobic potential; training is key."}
+        },
+        "confidence": "Medium"
+    },
+    "rs12722": {
+        "trait": "Tendon Injury Risk",
+        "gene": "COL5A1",
+        "category": "Fitness",
+        "variants": {
+            "TT": {"effect": "Reduced risk", "icon": "🛡️", "score": 0, "simple": "Your collagen structure suggests a lower risk of tendon injuries."},
+            "CC": {"effect": "Increased risk", "icon": "🩹", "score": 1, "simple": "You may be more prone to Achilles tendon or ligament injuries."}
+        },
+        "confidence": "Medium"
     }
 };
 
