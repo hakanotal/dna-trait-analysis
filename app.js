@@ -627,7 +627,7 @@ function renderReport(results, dnaData) {
             const confidenceColor = t.confidence === "High" ? "text-emerald-400 border-emerald-500/20 bg-emerald-500/5" : "text-amber-400 border-amber-500/20 bg-amber-500/5";
             
             cardsHtml += `
-            <div class="trait-card p-7 rounded-2xl relative group">
+            <div class="trait-card p-7 rounded-2xl relative group" data-category="${t.category}">
                 <div class="flex justify-between items-start mb-5">
                     <div class="flex items-center gap-4">
                         <span class="text-3xl filter drop-shadow-lg">${t.icon}</span>
@@ -684,9 +684,23 @@ searchInput.addEventListener('input', (e) => filterTraits(e.target.value));
 
 function filterTraits(query) {
     query = query.toLowerCase();
+    
+    // Filter cards
     document.querySelectorAll('.trait-card').forEach(card => {
         const text = card.textContent.toLowerCase();
-        card.style.display = text.includes(query) ? 'block' : 'none';
+        const cat = card.dataset.category ? card.dataset.category.toLowerCase() : '';
+        // Match either text content OR category
+        const match = text.includes(query) || cat.includes(query);
+        card.style.display = match ? 'block' : 'none';
+    });
+
+    // Hide empty sections
+    document.querySelectorAll('.category-section').forEach(section => {
+        let hasVisible = false;
+        section.querySelectorAll('.trait-card').forEach(c => {
+            if (c.style.display !== 'none') hasVisible = true;
+        });
+        section.style.display = hasVisible ? 'block' : 'none';
     });
 }
 
