@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Genetic Trait Analyzer - Secure Client-Side DNA Analysis</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body
+    class="bg-slate-900 text-slate-50 font-sans min-h-screen selection:bg-indigo-500/30"
+  >
+    <!-- Navbar -->
+    <nav
+      class="fixed w-full z-50 glass border-b border-slate-700/50 backdrop-blur-md"
+    >
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex items-center justify-between h-20">
+          <div
+            class="flex items-center gap-3 cursor-pointer"
+            onclick="resetApp()"
+          >
+            <span class="text-3xl">🧬</span>
+            <div>
+              <div class="font-bold text-lg leading-none tracking-tight">
+                Genotype AI
+              </div>
+              <div class="text-xs text-indigo-400 font-medium">
+                Privacy-First DNA Analysis
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <!-- GitHub Button Removed -->
+
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Landing / Upload Section -->
+    <div
+      id="landingSection"
+      class="min-h-screen flex flex-col items-center justify-center px-4 relative overflow-hidden pt-20"
+    >
+      <!-- Background Effects -->
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-3xl -z-10 animate-pulse-slow"
+      ></div>
+
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h1
+          class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-b from-white to-slate-400 bg-clip-text text-transparent"
+        >
+          Unlock Your DNA Code
+        </h1>
+        <p class="text-xl text-slate-400 leading-relaxed mb-8">
+          Discover your genetic traits for health, nutrition, and fitness.<br />
+          <span class="text-emerald-400 font-semibold">100% Private.</span> Your
+          data never leaves your browser.
+        </p>
+      </div>
+
+      <!-- Drop Zone -->
+      <div
+        id="dropZone"
+        class="w-full max-w-2xl bg-slate-800/50 border-2 border-dashed border-slate-600 hover:border-indigo-500 transition-all rounded-3xl p-12 text-center cursor-pointer group backdrop-blur-sm relative"
+      >
+        <input type="file" id="fileInput" accept=".csv,.txt" class="hidden" />
+
+        <div class="pointer-events-none">
+          <div
+            class="w-20 h-20 bg-indigo-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300"
+          >
+            <span class="text-4xl">📂</span>
+          </div>
+          <h3
+            class="text-2xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors"
+          >
+            Drag & Drop DNA File
+          </h3>
+          <p class="text-slate-400 mb-6">
+            Supports raw data formats from MyHeritage, 23andMe, AncestryDNA
+          </p>
+          <button
+            class="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3 rounded-xl font-semibold transition-all shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/40"
+          >
+            Select File
+          </button>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div
+          id="loadingOverlay"
+          class="hidden absolute inset-0 bg-slate-900/90 backdrop-blur-sm flex-col items-center justify-center rounded-3xl z-10"
+        >
+          <div
+            class="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mb-4"
+          ></div>
+          <div class="text-lg font-medium text-slate-300">
+            Analyzing <span id="processedCount">0</span> variants...
+          </div>
+        </div>
+      </div>
+
+      <!-- Example Format -->
+      <div class="mt-8 mb-4 text-center animate-fade-in-up" style="animation-delay: 0.2s">
+        <p class="text-slate-500 text-sm mb-3 font-medium">Supported File Format (CSV / TXT)</p>
+        <div class="bg-slate-950/50 border border-slate-700/50 rounded-xl p-5 font-mono text-xs text-slate-400 text-left inline-block shadow-2xl relative group">
+            <div class="absolute -top-2 -right-2 bg-indigo-500 text-white text-[10px] px-2 py-0.5 rounded-full font-bold opacity-0 group-hover:opacity-100 transition-opacity">EXAMPLE</div>
+            <div class="text-indigo-300/90 border-b border-indigo-500/20 pb-2 mb-2">RSID, CHROMOSOME, POSITION, RESULT</div>
+            <div class="space-y-1 opacity-70">
+                <div>rs4477212, 1, 82154, AA</div>
+                <div>rs3094315, 1, 752566, AG</div>
+                <div>rs3131972, 1, 752721, GG</div>
+            </div>
+        </div>
+      </div>
+
+      <!-- Privacy Badge -->
+      <div
+        class="mt-12 flex items-center gap-2 text-slate-500 text-sm bg-slate-800/50 px-4 py-2 rounded-full border border-slate-700/50"
+      >
+        <svg
+          class="w-4 h-4 text-emerald-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+          ></path>
+        </svg>
+        Client-side analysis. No data upload.
+      </div>
+    </div>
+
+    <!-- Report Section (Hidden by default) -->
+    <div id="reportSection" class="hidden">
+      <!-- Stats Bar -->
+      <div class="pt-32 pb-6 px-6 bg-slate-800/30 border-b border-slate-700/50">
+        <div class="max-w-7xl mx-auto flex justify-center gap-16">
+          <div class="text-center">
+            <div class="text-3xl font-bold text-white mb-1" id="statSnps">
+              0
+            </div>
+            <div
+              class="text-xs text-slate-500 font-semibold uppercase tracking-wider"
+            >
+              Markers Analyzed
+            </div>
+          </div>
+          <div class="w-px bg-slate-700/50"></div>
+          <div class="text-center">
+            <div
+              class="text-3xl font-bold text-indigo-400 mb-1"
+              id="statTraits"
+            >
+              0
+            </div>
+            <div
+              class="text-xs text-slate-500 font-semibold uppercase tracking-wider"
+            >
+              Traits Found
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content Grid -->
+      <div
+        class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-10"
+      >
+        <!-- Sidebar -->
+        <div class="lg:col-span-3 space-y-6">
+          <div
+            class="bg-slate-800/50 p-6 rounded-2xl sticky top-28 border border-slate-700/50 backdrop-blur-sm"
+          >
+            <h3 class="font-bold text-slate-200 mb-4 flex items-center gap-2">
+              <svg
+                class="w-4 h-4 text-indigo-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+                ></path>
+              </svg>
+              Filters
+            </h3>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search traits..."
+              class="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none mb-6 placeholder-slate-600 transition-all"
+            />
+            <div id="categoryFilters" class="space-y-1"></div>
+
+            <button
+              onclick="resetApp()"
+              class="mt-8 w-full py-3 text-sm text-slate-500 hover:text-slate-300 transition-colors border-t border-slate-700/50"
+            >
+              ← Analyze Another File
+            </button>
+          </div>
+        </div>
+
+        <!-- Trait Grid -->
+        <div class="lg:col-span-9 space-y-12" id="reportContent">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
